@@ -40,8 +40,8 @@ public class TrafficFlowServiceImpl implements TrafficFlowService {
             dateList.add(firstDayOfBeginYear);
         }
 
-        List<Double> freeFlowList = new ArrayList<Double>(); //公路年交通流量
-        List<Double> highFlowList = new ArrayList<Double>(); //告诉年交通流量
+        List<String> freeFlowList = new ArrayList<String>(); //公路年交通流量
+        List<String> highFlowList = new ArrayList<String>(); //告诉年交通流量
         for(LocalDate day : dateList){
             LocalDate beginDay = day;
             LocalDate endDay = beginDay.withMonth(12).withDayOfMonth(31);
@@ -51,8 +51,8 @@ public class TrafficFlowServiceImpl implements TrafficFlowService {
             map.put("end", endDay);
             Double flow = trafficFlowMapper.sumByMap(map);
             flow = flow == null ? 0.0 : flow;
-            freeFlowList.add(flow);
-            highFlowList.add(flow+100); //TO DO
+            freeFlowList.add(Double.toString(flow));
+            highFlowList.add(Double.toString(flow-100)); //TO DO
         }
 
         return TrafficFlowYearVO.builder()

@@ -6,5 +6,5 @@ import java.util.Map;
 
 @Mapper
 public interface TrafficFlowMapper {
-    Double sumByMap(Map map)
+    Double sumByMap(Map map);
 }
