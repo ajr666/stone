@@ -31,7 +31,7 @@ public class TrafficFlowServiceImpl implements TrafficFlowService {
             yearList.add(yearStr);
         }
 
-        List<LocalDate> dateList = new ArrayList<LocalDate>(); //2023-01-01 到 2024-12-31 的每一天
+        List<LocalDate> dateList = new ArrayList<LocalDate>(); //存2022到2024每年的第一天
 
         LocalDate firstDayOfBeginYear = LocalDate.of(beginYear,1,1);
         LocalDate firstDayOfEndYear = LocalDate.of(endYear,1,1);
@@ -46,10 +46,7 @@ public class TrafficFlowServiceImpl implements TrafficFlowService {
             LocalDate beginDay = day;
             LocalDate endDay = beginDay.withMonth(12).withDayOfMonth(31);
 
-            Map map = new HashMap();
-            map.put("begin", beginDay);
-            map.put("end", endDay);
-            Double flow = trafficFlowMapper.sumByMap(map);
+            Double flow = trafficFlowMapper.sumYearTrafficFlow(beginDay, endDay);
             flow = flow == null ? 0.0 : flow;
             freeFlowList.add(Double.toString(flow));
             highFlowList.add(Double.toString(flow-100)); //TO DO
